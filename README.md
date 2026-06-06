@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HRMS Frontend — Human Resource Management System
+
+The frontend for an AI-powered HRMS built with **Next.js 15**, **TypeScript**, and the App Router. Four role-based portals — Admin, HR, Manager, and Employee — each with a dedicated dashboard and feature set.
+
+> **Backend repo:** [HRMS](https://github.com/preetishverb/HRMS)
+
+---
+
+## Features by Role
+
+### Admin
+- Company dashboard with headcount stats, weekly attendance chart, hiring trend
+- Employee management — create, view, update, deactivate
+- Department management with live headcount
+- Monthly payroll generation with per-employee breakdown
+- Analytics — headcount by department, salary distribution, workforce by designation
+
+### HR
+- HR dashboard with pending leaves, open positions, headcount by department
+- Full recruitment hub — job openings, candidate pipeline with tabs (Shortlisted, Waiting, Interview, Offers, Hired/Rejected)
+- AI resume screening results — skill match score, gaps, recommendation
+- Schedule interviews, send offer letters, hire candidates
+- Leave approval workflow
+
+### Manager
+- Team performance overview
+- Performance review tool — select direct report, star rating (1–5), goals, achievements, comments, submit
+
+### Employee (Self-Service)
+- Personal dashboard
+- Attendance calendar with month navigation and colour-coded days
+- Leave management — balance cards, apply form, application history
+- Payslip viewer — earnings, deductions, net pay
+- Performance reviews — ratings, goals, manager comments
+
+### All Roles
+- Peer-to-peer feedback (inbox, sent, give feedback with categories)
+- Anonymous complaint portal
+- AI HR chatbot (context-aware, knows your leave balance, attendance, payslips)
+
+---
+
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| HTTP Client | Axios with JWT interceptor |
+| Charts | Recharts |
+| Icons | Lucide React |
+| Styling | Inline styles + CSS variables |
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+
+- Backend running at `http://localhost:8080`
 
+### 1. Clone the repo
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/preetishverb/HRMS-Frontend.git
+cd HRMS-Frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Configure environment
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set `NEXT_PUBLIC_API_URL=http://localhost:8080` (already the default)
 
-## Learn More
+### 4. Run the dev server
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Demo Credentials
 
-## Deploy on Vercel
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@hrms.com | admin@123 |
+| Manager | manager@hrms.com | manager@123 |
+| HR | hr@hrms.com | hr@123 |
+| Employee | employee@hrms.com | employee@123 |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+app/
+├── login/                    # Login page with role quick access
+├── careers/                  # Public job listings (no auth)
+├── offer/                    # Candidate offer accept/decline
+└── dashboard/
+    ├── admin/
+    │   ├── page.tsx          # Admin dashboard
+    │   ├── employees/        # Employee management
+    │   ├── departments/      # Department management
+    │   ├── payroll/          # Payroll generation
+    │   └── analytics/        # Workforce analytics
+    ├── hr/
+    │   ├── page.tsx          # HR dashboard
+    │   ├── recruitment/      # Recruitment pipeline
+    │   └── leaves/           # Leave approvals
+    ├── manager/
+    │   ├── page.tsx          # Manager dashboard
+    │   └── performance/      # Team performance reviews
+    ├── employee/
+    │   ├── page.tsx          # Employee dashboard
+    │   ├── attendance/       # Attendance calendar
+    │   ├── leave/            # Leave management
+    │   ├── payslips/         # Payslip viewer
+    │   └── performance/      # Performance reviews
+    ├── feedback/             # Peer-to-peer feedback (all roles)
+    └── complaints/           # Anonymous complaints (all roles)
+
+components/
+├── Sidebar.tsx               # Role-aware navigation sidebar
+├── UI.tsx                    # TopBar, StatCard, Spinner
+
+lib/
+├── api.ts                    # Axios API client + all endpoint methods
+└── auth.ts                   # Auth helpers (save/get/logout user)
+```
